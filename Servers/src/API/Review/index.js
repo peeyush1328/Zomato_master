@@ -5,11 +5,11 @@ import { validateId } from "../../Validation/CommonValidation";
 
 const Router = express.Router();
 
-Router.get("/:_resID", async (req, res) => {
+Router.get("/:resID", async (req, res) => {
   try {
-    await validateId(req.params);
-    const { _resID } = req.params;
-    const reviews = await Reviewmodel.findOne({ Review: _resID }).sort({
+    // await validateId(req.params);
+    const { resID } = req.params;
+    const reviews = await Reviewmodel.find({ restaurant: resID }).sort({
       createdAt: -1,
     });
     return res.status(200).json({ reviews });
@@ -24,8 +24,8 @@ Router.post(
   async (req, res) => {
     try {
       const { _id } = req.user;
-      const { reviews } = req.body;
-      const NewRiview = await Reviewmodel.create({ ...reviews, user: _id });
+      const { reviewData } = req.body;
+      const NewRiview = await Reviewmodel.create({ ...reviewData, user: _id });
       return res.status(200).json({ NewRiview });
     } catch (error) {
       return res.status(500).json({ error: error.message });
@@ -38,7 +38,7 @@ Router.delete(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      await validateId(req.params);
+      // await validateId(req.params);
       const { id } = req.params;
       const { user } = req.body;
       const data = await Reviewmodel.findOneAndDelete({

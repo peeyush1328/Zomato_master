@@ -13,12 +13,17 @@ import passport from "passport";
 import PrivateApi from "./config/Config";
 import Googleroute from "./config/Google.auth";
 import session from "express-session";
+import cors from "cors";
+import helmet from "helmet";
+
 dotenv.config();
 PrivateApi(passport);
 Googleroute(passport);
 const port = 8088;
 const Zomato = express();
 
+Zomato.use(cors({ origin: "http://localhost:3000" }));
+Zomato.use(helmet());
 Zomato.use(express.json());
 Zomato.use(session({ secret: process.env.SECRET_KEY }));
 Zomato.use(passport.initialize());

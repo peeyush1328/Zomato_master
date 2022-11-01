@@ -9,7 +9,7 @@ const Router = express.Router();
 
 /**
  * Route     /list/:_id
- * Des       Getting menus list on the basis of the menu's ID. 
+ * Des       Getting menus list on the basis of the menu's ID.
  * Params    none
  * Access    Public
  * Method    GET
@@ -41,6 +41,15 @@ Router.get("/images/:_id", async (req, res) => {
     const images = await Imagemodel.findById(_id);
     if (!images) return res.status(404).json({ message: "No images found" });
     return res.status(200).json({ images });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+Router.post("/create", async (req, res) => {
+  try {
+    const menu = await Menumodel.create(req.body);
+    return res.status(200).json({ menu });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

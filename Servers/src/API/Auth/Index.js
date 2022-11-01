@@ -1,4 +1,4 @@
-// Importing modules 
+// Importing modules
 import express from "express";
 import passport from "passport";
 
@@ -31,7 +31,7 @@ Router.post("/signup", async (req, res) => {
 });
 
 /**
- * Route     /:sigin
+ * Route     /sigin
  * Des       Generating token for existing user and allow user to signin.
  * Params    none
  * Access    Public
@@ -51,7 +51,7 @@ Router.post("/signin", async (req, res) => {
 
 /**
  * Route     /google
- * Des       authenticating gooogle for signin/signup 
+ * Des       authenticating gooogle for signin/signup
  * Params    none
  * Access    Public
  * Method    GET
@@ -77,9 +77,12 @@ Router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    return res.status(200).json({
-      token: req.session.passport.user.token,
-    });
+    // return res.status(200).json({
+    //   token: req.session.passport.user.token,
+    // });
+    return res.redirect(
+      `http://localhost:3000/google/${req.session.passport.user.token}`
+    );
   }
 );
 

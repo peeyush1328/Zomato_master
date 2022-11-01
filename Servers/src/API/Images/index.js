@@ -24,12 +24,12 @@ const upload = multer({ storage });
  */
 Router.get("/:_id", async (req, res) => {
   try {
-    await validateId(req.params);
+    // await validateId(req.params);
     const { _id } = req.params;
 
     const image = await Imagemodel.findById(_id);
     if (image.length === 0) {
-      return res.status(404).json({ message: "No details found" });
+      return res.status(404).json({ message: "No image found" });
     }
     return res.status(200).json({ image });
   } catch (error) {
@@ -66,6 +66,44 @@ Router.post("/", upload.single("file"), async (req, res) => {
       ],
     });
     return res.status(200).json({ DBUpload });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+Router.put("/update/:_id", upload.single("file"), async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const file = req.file;
+
+    //Access List
+    const buketOptions = {
+      Bucket: "zomato-clone-busket",
+      Key: file.originalname,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+      ACL: "public-read",
+    };
+    //Getting images from s3 buket and after that uploading to the MongoDB database.
+    const uploadImage = await s3Upload(buketOptions);
+    const DBUpload = await Imagemodel.findById(_id);
+
+    const array = DBUpload.images;
+    // console.log(array);
+    const itemed = await array.push({
+      location: uploadImage.Location,
+    });
+    const updated  =  await Imagemodel.findByIdAndUpdate(_id, { $set: DBUpload }, { new: true });
+    return res.status(200).json({ DBUpload });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+Router.delete("/delete/:_id", async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const image = await Imagemodel.findByIdAndDelete(_id);
+    return res.json({ image });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

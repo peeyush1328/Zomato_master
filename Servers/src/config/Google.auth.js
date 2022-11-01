@@ -10,7 +10,7 @@ export default (passport) => {
       {
         clientID: process.env.GOOGLECLIENT_KEY,
         clientSecret: process.env.GOOGLECLIENT_SECRET_KEY,
-        callbackURL: "http://localhost:8088/auth/google/callback",
+        callbackURL: `${process.env.REACT_APP_CLIENT_URL}auth/google/callback`,
       },
 
       async (accessToken, refreshToken, profile, done) => {
