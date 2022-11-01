@@ -1,6 +1,8 @@
 import React from "react";
 
+//importing Components...
 import Navbar from "../components/Navbar";
+import Foodtab from "../components/FoodTab";
 
 const HomepageLayout =
   (Component) =>
@@ -8,8 +10,10 @@ const HomepageLayout =
     return (
       <>
         <Navbar />
-        {/* <FoodTab /> */}
-        <div className="container mx-auto px-4 lg:px-20">
+        <div className="sticky top-0 z-10 bg-white">
+          <Foodtab />
+        </div>
+        <div className="container mx-auto">
           <Component {...props} />
         </div>
       </>
