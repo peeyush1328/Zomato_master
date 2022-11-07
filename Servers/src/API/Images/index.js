@@ -71,6 +71,13 @@ Router.post("/", upload.single("file"), async (req, res) => {
   }
 });
 
+/**
+ * Route     /update/:id
+ * Des       search image and pushing more images in the same image 
+ * Params    _id
+ * Access    Public
+ * Method    PUT
+ */
 Router.put("/update/:_id", upload.single("file"), async (req, res) => {
   try {
     const { _id } = req.params;
@@ -99,6 +106,14 @@ Router.put("/update/:_id", upload.single("file"), async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+
+/**
+ * Route     /delete/:id
+ * Des       Deleting image on the basis of ID
+ * Params    _id
+ * Access    Public
+ * Method    Delete
+ */
 Router.delete("/delete/:_id", async (req, res) => {
   try {
     const { _id } = req.params;

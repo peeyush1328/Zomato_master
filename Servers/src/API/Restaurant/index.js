@@ -8,6 +8,13 @@ import {
 
 const Router = express.Router();
 
+/**
+ * Route        /create
+ * Des          creating new restaurant detail.
+ * Params       none
+ * Access       Public
+ * Method       POST
+ */
 Router.post("/create", async (req, res) => {
   try {
     const restaurant = await Restaurantmodel.create(req.body.item);
@@ -17,6 +24,13 @@ Router.post("/create", async (req, res) => {
   }
 });
 
+/**
+ * Route        /:_id
+ * Des          get insividual restaurant details based on id
+ * Params       none
+ * Access       Public
+ * Method       GET
+ */
 Router.get("/:_id", async (req, res) => {
   try {
     await validateId(req.params);
@@ -31,6 +45,13 @@ Router.get("/:_id", async (req, res) => {
   }
 });
 
+/**
+ * Route        /
+ * Des          GET all the restaurant details based on the city
+ * Params       none
+ * Access       Public
+ * Method       GET
+ */
 Router.get("/", async (req, res) => {
   try {
     // await ValidateRestaurantCity(req.query);
@@ -47,6 +68,14 @@ Router.get("/", async (req, res) => {
   }
 });
 
+
+/**
+ * Route        /search
+ * Des          Get restaurant details based on search string
+ * Params       none
+ * Access       Public
+ * Method       GET
+ */
 Router.get("/search/:string", async (req, res) => {
   try {
     // await ValidateSearchString(req.params);

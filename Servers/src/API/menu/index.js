@@ -46,6 +46,13 @@ Router.get("/images/:_id", async (req, res) => {
   }
 });
 
+/**
+ * Route     /create
+ * Des       Creating menu in the menumodel
+ * Params    none
+ * Access    Public
+ * Method    POST
+ */
 Router.post("/create", async (req, res) => {
   try {
     const menu = await Menumodel.create(req.body);

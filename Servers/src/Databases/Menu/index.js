@@ -9,7 +9,13 @@ const Menuschema = new mongoose.Schema(
       },
     ],
     recommended: [
-      { type: mongoose.Types.ObjectId, ref: "foods", unique: true },
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "foods",
+        index: true,
+        unique: true,
+        sparse: true,
+      },
     ],
   },
   { timestamp: true }

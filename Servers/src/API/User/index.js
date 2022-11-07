@@ -5,6 +5,13 @@ import { validateId } from "../../Validation/CommonValidation";
 
 const Router = express.Router();
 
+/**
+ * Route        /
+ * Des          GET authorized user data
+ * Params       none
+ * Access       Public
+ * Method       GET
+ */
 Router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -17,6 +24,14 @@ Router.get(
     }
   }
 );
+
+/**
+ * Route        /:_id
+ * Des          GET user data
+ * Params       _id
+ * Access       Public
+ * Method       GET
+ */
 Router.get("/:_id", async (req, res) => {
   try {
     await validateId(req.params);
@@ -30,6 +45,13 @@ Router.get("/:_id", async (req, res) => {
   }
 });
 
+/**
+ * Route        /update
+ * Des          Update user data
+ * Params       _id
+ * Access       Public
+ * Method       PUT
+ */
 Router.put(
   "/Update/:_id",
   passport.authenticate("jwt", { session: false }),

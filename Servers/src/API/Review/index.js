@@ -5,6 +5,13 @@ import { validateId } from "../../Validation/CommonValidation";
 
 const Router = express.Router();
 
+/**
+ * Route        /:resid
+ * Des          GET all reviews for a particular restaurant
+ * Params       resid
+ * Access       Public
+ * Method       GET
+ */
 Router.get("/:resID", async (req, res) => {
   try {
     // await validateId(req.params);
@@ -18,6 +25,13 @@ Router.get("/:resID", async (req, res) => {
   }
 });
 
+/**
+ * Route        /new
+ * Des          POST: Adding new food/restaurant review and rating
+ * Params       none
+ * Access       Private
+ * Method       POST
+ */
 Router.post(
   "/new",
   passport.authenticate("jwt", { session: false }),
@@ -33,6 +47,13 @@ Router.post(
   }
 );
 
+/**
+ * Route        /delete/:id
+ * Des          Delete a specific review
+ * Params       _id
+ * Access       Public
+ * Method       DELETE
+ */
 Router.delete(
   "/delete/:id",
   passport.authenticate("jwt", { session: false }),

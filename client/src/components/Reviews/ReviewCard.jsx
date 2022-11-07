@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TiStarFullOutline } from "react-icons/ti";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { getUser } from "../../redux/reducers/user/user.action";
+import { getReview } from "../../redux/reducers/review/review.action";
+import { useParams } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 
 const ReviewCard = (props) => {
-  const user = useSelector((globalState) => globalState.user);
+  const [user, setUser] = useState([]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser(props.user)).then((data) => {
+      setUser(data.payload.user.fullName);
+    });
+  }, []);
 
   return (
     <div className="my-3 flex flex-col gap-3 pb-4 border-b border-gray-300">
@@ -21,7 +33,7 @@ const ReviewCard = (props) => {
             />
           </div>
           <div className="flex flex-col">
-            <h3 className="text-lg font-semibold">{user.fullName}</h3>
+            <h3 className="text-lg font-semibold">{user}</h3>
             <small className="text-gray-500">
               5 Reviews &#8226; 3 Followers
             </small>

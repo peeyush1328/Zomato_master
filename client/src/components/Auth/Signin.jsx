@@ -32,7 +32,7 @@ const Signin = ({ isOpen, setIsOpen }) => {
   };
 
   const googleSignIn = () =>
-    (window.location.href = `${process.env.REACT_APP_CLIENT_URL}auth/google`);
+    (window.location.href = "http://localhost:8088/auth/google");
 
   return (
     <>
