@@ -94,6 +94,13 @@ Router.get("/search/:string", async (req, res) => {
   }
 });
 
+/**
+ * Route        /Update/:_id
+ * Des          editing restaurant details based on ID
+ * Params       none
+ * Access       Public
+ * Method       PUT
+ */
 Router.put("/Update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;

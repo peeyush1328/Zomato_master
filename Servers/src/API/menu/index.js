@@ -2,7 +2,7 @@
 import express from "express";
 
 //importing menu and image schemas...
-import { Menumodel, Imagemodel } from "../../Databases/menu";
+import { Menumodel, Imagemodel } from "../../Databases/Allmodels";
 import { validateId } from "../../Validation/CommonValidation";
 
 const Router = express.Router();
