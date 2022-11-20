@@ -3,6 +3,9 @@ import axios from "axios";
 // redux types
 import { SIGN_IN, SIGN_UP, GOOGLE_AUTH, SIGN_OUT } from "./auth.type";
 
+//redux actions
+import {getMySelf,clearUser} from "../user/user.action"
+
 export const signIn = (userData) => async (dispatch) => {
   try {
     const User = await axios({
@@ -10,6 +13,7 @@ export const signIn = (userData) => async (dispatch) => {
       url: `${process.env.REACT_APP_CLIENT_URL}auth/signin`,
       data: { credentials: userData },
     });
+
 
     localStorage.setItem(
       "zomatoUser",
@@ -61,6 +65,8 @@ export const signOut = () => async (dispatch) => {
 export const googleAuth = (token) => async (dispatch) => {
   try {
     localStorage.setItem("zomatoUser", JSON.stringify({ token }));
+
+    
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 

@@ -50,7 +50,7 @@ Router.post("/", upload.single("file"), async (req, res) => {
 
     //Access List
     const buketOptions = {
-      Bucket: "zomato-clone-busket",
+      Bucket: "zomato-master",
       Key: file.originalname,
       Body: file.buffer,
       ContentType: file.mimetype,
@@ -85,7 +85,7 @@ Router.put("/update/:_id", upload.single("file"), async (req, res) => {
 
     //Access List
     const buketOptions = {
-      Bucket: "zomato-clone-busket",
+      Bucket: "zomato-master",
       Key: file.originalname,
       Body: file.buffer,
       ContentType: file.mimetype,

@@ -12,6 +12,7 @@ const RestaurantCard = (props) => {
   });
 
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     dispatch(getImage(props.photos)).then((data) => {
